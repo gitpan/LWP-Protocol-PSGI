@@ -1,5 +1,5 @@
 ---
-abstract: 'Override HTTP/HTTPS backend with your own PSGI applciation'
+abstract: "Override LWP's HTTP/HTTPS backend with your own PSGI applciation"
 author:
   - 'Tatsuhiko Miyagawa <miyagawa@bulknews.net>'
 build_requires:
@@ -31,4 +31,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://github.com/miyagawa/LWP-Protocol-PSGI.git
-version: 0.01
+version: 0.02

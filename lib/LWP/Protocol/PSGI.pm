@@ -2,7 +2,7 @@ package LWP::Protocol::PSGI;
 
 use strict;
 use 5.008_001;
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use parent qw(LWP::Protocol);
 use HTTP::Message::PSGI qw( req_to_psgi res_from_psgi );
@@ -56,7 +56,7 @@ __END__
 
 =head1 NAME
 
-LWP::Protocol::PSGI - Override HTTP/HTTPS backend with your own PSGI applciation
+LWP::Protocol::PSGI - Override LWP's HTTP/HTTPS backend with your own PSGI applciation
 
 =head1 SYNOPSIS
 
@@ -75,19 +75,20 @@ LWP::Protocol::PSGI - Override HTTP/HTTPS backend with your own PSGI applciation
 
   LWP::Protocol::PSGI->register($psgi_app);
 
-  # can hijack any code that uses LWP::UserAgent underneath, with no changes
+  # can hijack any code or module that uses LWP::UserAgent underneath, with no changes
   my $ua  = LWP::UserAgent->new;
   my $res = $ua->get("http://www.google.com/search?q=bar");
   print $res->content; # "googling bar"
 
 =head1 DESCRIPTION
 
-LWP::Protocol::PSGI is a module to hijack I<ANY> code that uses
+LWP::Protocol::PSGI is a module to hijack B<any> code that uses
 L<LWP::UserAgent> underneath such that any HTTP or HTTPS requests can
 be routed to your own PSGI application.
 
 Because it works with any code that uses LWP, you can override various
-WWW::/Net::/WebService:: modules such as L<WWW::Mechanize>.
+WWW::*, Net::* or WebService::* modules such as L<WWW::Mechanize>,
+without modifying the calling code or its internals.
 
   use WWW::Mechanize;
   use LWP::Protocol::PSGI;
@@ -112,7 +113,7 @@ the override when it goes out of context.
 
   {
       my $guard = LWP::Protocol::PSGI->register($app);
-      # code that uses LWP
+      # hijack the code using LWP with $app
   }
 
   # now LWP uses the original HTTP implementations
