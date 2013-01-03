@@ -2,7 +2,7 @@ package LWP::Protocol::PSGI;
 
 use strict;
 use 5.008_001;
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use parent qw(LWP::Protocol);
 use HTTP::Message::PSGI qw( req_to_psgi res_from_psgi );
@@ -175,7 +175,7 @@ original LWP HTTP protocol implementor.
   LWP::Protocol::PSGI->register($app, host => qr/\.google\.com$/);
   LWP::Protocol::PSGI->register($app, uri => sub { my $uri = shift; ... });
 
-The options can take eithe a string, where it does a complete match, a
+The options can take either a string, where it does a complete match, a
 regular expression or a subroutine reference that returns boolean
 given the value of C<host> (only the hostname) or C<uri> (the whole
 URI, including query parameters).
@@ -188,6 +188,42 @@ Resets all the overrides for LWP. If you use the guard interface
 described above, it will be automatically called for you.
 
 =back
+
+=head1 DIFFERENCES WITH OTHER MODULES
+
+=head2 Mock vs Protocol handlers
+
+There are similar modules on CPAN that allows you to emulate LWP
+requests and responses. Most of them are implemented as a mock
+library, which means it doesn't go through the LWP guts and just gives
+you a wrapper for receiving HTTP::Request and returning HTTP::Response
+back.
+
+LWP::Protocol::PSGI is implemented as an LWP protocol handler and it
+allows you to use most of the LWP extensions to add capabilities such
+as manipulating headers and parsing cookies.
+
+=head2 Test::LWP::UserAgent
+
+L<Test::LWP::UserAgent> has the similar concept of overriding LWP
+request method with particular PSGI applications. It has more features
+and options such as passing through the requests to the native LWP
+handler, while LWP::Protocol::PSGI only allows to map certain hosts
+and ports.
+
+Test::LWP::UserAgent requires you to change the instantiation of
+UserAgent from C<< LWP::UserAgent->new >> to C<<
+Test::LWP::UserAgent->new >> somehow and it's your responsibility to
+do so. This mechanism gives you more control which requests should go
+through the PSGI app, and it might not be difficult if the creation is
+done in one place in your code base. However it might be hard or even
+impossible when you are dealing with third party modules that calls
+LWP::UserAgent inside.
+
+LWP::Protocol::PSGI affects the LWP calling code more globally, while
+having an option to enable it only in a specific block, thus there's
+no need to change the UserAgent object manually, whether it is in your
+code or CPAN modules.
 
 =head1 AUTHOR
 
