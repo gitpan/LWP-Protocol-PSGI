@@ -3,33 +3,36 @@ abstract: "Override LWP's HTTP/HTTPS backend with your own PSGI applciation"
 author:
   - 'Tatsuhiko Miyagawa <miyagawa@bulknews.net>'
 build_requires:
-  ExtUtils::MakeMaker: 6.59
   Test::More: 0.88
   Test::Requires: 0
 configure_requires:
-  ExtUtils::MakeMaker: 6.59
-distribution_type: module
-dynamic_config: 1
-generated_by: 'Module::Install version 1.06'
+  Module::Build::Tiny: 0.023
+dynamic_config: 0
+generated_by: 'Dist::Milla version v1.0.2, Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.131560'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
-module_name: LWP::Protocol::PSGI
 name: LWP-Protocol-PSGI
 no_index:
   directory:
-    - inc
     - t
     - xt
+    - inc
+    - share
+    - eg
+    - examples
 requires:
   Guard: 0
   HTTP::Message::PSGI: 0
   LWP: 5
   LWP::Protocol: 0
   parent: 0
-  perl: 5.8.1
+  perl: 5.008001
 resources:
-  license: http://dev.perl.org/licenses/
-  repository: git://github.com/miyagawa/LWP-Protocol-PSGI.git
-version: 0.04
+  bugtracker: https://github.com/miyagawa/LWP-Protocol-PSGI/issues
+  homepage: https://github.com/miyagawa/LWP-Protocol-PSGI
+  repository: https://github.com/miyagawa/LWP-Protocol-PSGI.git
+version: 0.05
+x_contributors:
+  - 'Daisuke Maki <lestrrat+github@gmail.com>'
