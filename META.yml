@@ -33,6 +33,7 @@ resources:
   bugtracker: https://github.com/miyagawa/LWP-Protocol-PSGI/issues
   homepage: https://github.com/miyagawa/LWP-Protocol-PSGI
   repository: https://github.com/miyagawa/LWP-Protocol-PSGI.git
-version: 0.05
+version: 0.06
 x_contributors:
   - 'Daisuke Maki <lestrrat+github@gmail.com>'
+  - 'Syohei YOSHIDA <syohex@gmail.com>'
