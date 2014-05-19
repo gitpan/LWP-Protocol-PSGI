@@ -2,7 +2,7 @@ package LWP::Protocol::PSGI;
 
 use strict;
 use 5.008_001;
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 use parent qw(LWP::Protocol);
 use HTTP::Message::PSGI qw( req_to_psgi res_from_psgi );
@@ -137,17 +137,17 @@ __END__
 
 =head1 NAME
 
-LWP::Protocol::PSGI - Override LWP's HTTP/HTTPS backend with your own PSGI applciation
+LWP::Protocol::PSGI - Override LWP's HTTP/HTTPS backend with your own PSGI application
 
 =head1 SYNOPSIS
 
   use LWP::UserAgent;
   use LWP::Protocol::PSGI;
 
-  # can be Mojolicious, Catalyst ... any PSGI application
+  # can be Mojolicious, Catalyst, Dancer2 or any PSGI application
   my $psgi_app = do {
       use Dancer;
-      setting apphandler => 'PSGI';
+      set apphandler => 'PSGI';
       get '/search' => sub {
           return 'googling ' . params->{q};
       };
